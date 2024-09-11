@@ -40,7 +40,7 @@ app.post("*", async (req, res) => {
   }
 
 });
-
+const greenCheckmark = '\x1b[32m✔\x1b[0m';
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`${greenCheckmark} Server is running on port ${PORT}`);
 });

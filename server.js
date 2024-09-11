@@ -40,7 +40,7 @@ app.post("*", async (req, res) => {
   }
 
 });
-const greenCheckmark = '\x1b[32m✔\x1b[0m';
+const RedGuitar = '\x1b[31m🎸\x1b[0m';
 app.listen(PORT, () => {
-  console.log(`${greenCheckmark} Server is running on port ${PORT}`);
+  console.log(`${RedGuitar} Server is running on port ${PORT} ${RedGuitar } `);
 });

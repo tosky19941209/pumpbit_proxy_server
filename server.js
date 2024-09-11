@@ -9,58 +9,36 @@ const app = express();
 
 app.use(cors());
 app.use(morgan("dev"))
+app.use(express.json())
 
+app.get("*", async (req, res) => {
 
-app.get("*", (req, res) => {
-
-  const fullUrl = req.originalUrl;
-  const accessToken = req.headers.authorization
-  const options = {
-    method: "GET",
-    url: "https://api.inftytrade.xyz" + fullUrl,
-    headers: {
-      "X-CMC_PRO_API_KEY": process.env.REACT_APP_MARKET_CAP_KEY,
+  try {
+    const fullUrl = req.originalUrl;
+    const accessToken = req.headers.authorization
+    const url = "https://api.inftytrade.xyz" + fullUrl
+    const headers = {
       "Authorization": accessToken
-    },
-  };
-
-  axios
-    .request(options)
-    .then((response) => {
-      res.json(response.data);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
+    }
+    const result = await axios.get(url, { headers: headers })
+    res.json(result.data)
+  } catch (error) {
+    res.json(error)
+  }
 });
 
 
-app.post("*", (req, res) => {
+app.post("*", async (req, res) => {
+  try {
+    const fullUrl = req.originalUrl;
+    const body = req.body
+    const url = "https://api.inftytrade.xyz" + fullUrl
+    const result = await axios.post(url, body)
+    res.json(result.data)
+  } catch (error) {
+    res.json(error)
+  }
 
-
-  const fullUrl = req.originalUrl;
-  const accessToken = req.headers.authorization
-  const body = req.body
-
-  const options = {
-    method: "POST",
-    url: "https://api.inftytrade.xyz" + fullUrl,
-    headers: {
-      "X-CMC_PRO_API_KEY": process.env.REACT_APP_MARKET_CAP_KEY,
-      "Authorization": accessToken
-    },
-    body: body
-
-  };
-
-  axios
-    .request(options)
-    .then((response) => {
-      res.json(response.data);
-    })
-    .catch((error) => {
-      res.json(error);
-    });
 });
 
 app.listen(PORT, () => {

@@ -1,8 +1,6 @@
 const express = require("./master/express")
 const mongoose = require("./master/mongoose")
 const config = require("./config/index")
-const { mongo } = require("mongoose")
-
 const PORT = config.port
 
 const app = express()
